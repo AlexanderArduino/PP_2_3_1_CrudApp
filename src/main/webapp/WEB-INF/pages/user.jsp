@@ -12,6 +12,7 @@
 </head>
 <body>
 this is a user page
+<p>User: ${user}</p>
 <h3><a href="/title">Go to title page</a></h3>
 </body>
 </html>
