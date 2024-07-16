@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" smlns="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
@@ -7,17 +7,17 @@
         .button {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #4CAF50;
-            color: yellow;
+            background-color: #5ee062;
+            color: black;
             text-align: center;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 20px;
             border: black;
-            cursor: crosshair;
-            border-radius: 4px;
+            cursor: auto;
+            border-radius: 10px;
         }
         .button:hover {
-            background-color: #45a049;
+            background-color: #1a671a;
         }
     </style>
 </head>
@@ -32,6 +32,8 @@
         <th>Surname</th>
         <th>Age</th>
         <th>Email</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -42,9 +44,14 @@
         <td th:text="${user.getSurname()}">Surname</td>
         <td th:text="${user.getAge()}">Age</td>
         <td th:text="${user.getEmail()}">Email</td>
+        <td>
+            <button type="button" name="button_update"><a th:href="@{/user?id={id}(id=${user.getId()})}">EDIT</a></button>
+            <button type="button" name="button_delete">DELETE</button>
+        </td>
     </tr>
     </tbody>
 </table>
-<a href="#" class="button">Press me</a>
+<button type="button" name="button"><a href="/new">Add new user</a></button>
+
 </body>
 </html>
