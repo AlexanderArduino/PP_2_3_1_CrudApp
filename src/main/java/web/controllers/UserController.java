@@ -17,42 +17,46 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public String allUsers(Model model){
-        model.addAttribute("users", userService.allUsers());
-        return "users";
+        model.addAttribute("allusers", userService.allUsers());
+        return "/all-users";
     }
 
     //При переходе на страницу отображаем форму для ввода данных. Модель user
-    @GetMapping("/new")
+    @GetMapping("/addnewuser")
     public String newUser(Model model) {
-        model.addAttribute("user", new User());
-        return "newuser";
+        model.addAttribute("addnewuser", new User());
+        return "/add-new-user";
     }
 
     //Отправляем ПОСТ запрос для модели user, добавляем в базу данных через сервис,
     //производим переход на страницу users(редирект вызывает контроллер
     @PostMapping
-    public String create(@ModelAttribute("user") User user) {
+    public String create(@ModelAttribute("addnewuser") User user) {
         userService.add(user);
-        return "redirect:users";
+        return "redirect:/";
     }
 
 
-
-//    @GetMapping("/{id}")
-//    public String editUserView(@RequestParam("id") Long id,
-//                           Model model){
-//        model.addAttribute("user", userService.getById(id));
-//        return "user";
-//    }
-
-    @GetMapping("/user")
+    @GetMapping("/edituserbyid")
     public String editUserView(@RequestParam("id") Long id, Model model) {
         User user = userService.getById(id);
-        model.addAttribute("user", user);
-        return "user";
+        model.addAttribute("edituser", user);
+        return "/edit-user";
     }
 
+    @PostMapping("/userupdate")
+    public String updateUser(@ModelAttribute("updateuser") User user) {
+        userService.edit(user);
+        return "redirect:/";
+    }
+
+
+    @GetMapping("/userdelete")
+    public String deleteUser(@ModelAttribute("deleteuser") User user) {
+        userService.delete(user);
+        return "redirect:/";
+    }
 
 }

@@ -53,7 +53,14 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public void edit(User user) {
-        entityManager.merge(user);
+        String hql = "UPDATE User SET name=:newName, surname=:newSurname, age=:newAge, email=:newEmail WHERE id=:userID";
+        entityManager.createQuery(hql)
+                .setParameter("newName", user.getName())
+                .setParameter("newSurname", user.getSurname())
+                .setParameter("newAge", user.getAge())
+                .setParameter("newEmail", user.getEmail())
+                .setParameter("userID", user.getId()).executeUpdate();
+        //entityManager.merge(user);
     }
 
     @Override
